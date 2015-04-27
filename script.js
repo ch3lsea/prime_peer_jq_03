@@ -38,6 +38,10 @@ $(document).ready(function() {
 		userInput = $('#search').val();
 		search(userInput);
 	});
+	//this doesn't work yet, because we have to hide the images, platforms and descriptions first
+	$('#result').on('click', function(){
+		$('#result' + (i+1)).children().show('#description', '#platforms');
+	});
 });
 
 // HELPER FUNCTION
