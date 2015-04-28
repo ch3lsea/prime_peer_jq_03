@@ -1,28 +1,30 @@
 
 function searchCallback(results) {
 	for (var i = 0; i < 10; i++) {
+		var currentRow;
 		var platformName = "";
 		for (var j = 0; j < results[i].platforms.length; j++) {
 			platformName += " - " + results[i].platforms[j].name;
 		}
-		if((i+1) % 3 == 0) {
+		if(i % 3 == 0) {
+			currentRow = i;
 			$('#searchResults').append(
-				'<div id="searchRow" class="row">' +
+				'<div id="searchRow' + currentRow + '"class="row">' +
 					'<div id="result' + (i+1) + '" class="col-md-4">' +
-						'<div id="name"><h4>Game Title:</h4> ' + results[i].name + '</div>' +
+						'<div id="name" ><h4>Game Title:</h4> ' + results[i].name + '</div>' +
 						'<div id="image"><img src="' + results[i].image.thumb_url + '"/></div>' +
-						'<div id="description"><h5>Description:</h5> ' + results[i].deck + '</div>' +
-						'<div id="platforms"><h5>Supported Platforms:</h5> ' + platformName + '</div>' +
+						'<div id="description" class="bill"><h5>Description:</h5> ' + results[i].deck + '</div>' +
+						'<div id="platforms" class="bill"><h5>Supported Platforms:</h5> ' + platformName + '</div>' +
 					'<div>' +
 				'</div>'
 			);
 		} else {
-			$('#searchResults').append(
+			$('#searchResults').children('#searchRow'+currentRow).append(
 				'<div id="result' + (i+1) + '" class="col-md-4">' +
 					'<div id="name"><h4>Game Title:</h4> ' + results[i].name + '</div>' +
 					'<div id="image"><img src="' + results[i].image.thumb_url + '"/></div>' +
-					'<div id="description"><h5>Description:</h5> ' + results[i].deck + '</div>' +
-					'<div id="platforms"><h5>Supported Platforms:</h5> ' + platformName + '</div>' +
+					'<div id="description" class="bill"><h5>Description:</h5> ' + results[i].deck + '</div>' +
+					'<div id="platforms" class="bill"><h5>Supported Platforms:</h5> ' + platformName + '</div>' +
 				'<div>'
 			);
 		}
@@ -39,8 +41,12 @@ $(document).ready(function() {
 		search(userInput);
 	});
 	//this doesn't work yet, because we have to hide the images, platforms and descriptions first
-	$('#result').on('click', function(){
-		$('#result' + (i+1)).children().show('#description', '#platforms');
+	$('#searchResults').on('click', ".col-md-4", function(){
+		if($(this).children('.bill').first().css('display') == 'none') {
+			$(this).children('.bill').show();
+		} else {
+			$(this).children('.bill').hide();
+		}
 	});
 });
 
