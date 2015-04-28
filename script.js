@@ -61,11 +61,9 @@ function search(query){
 	    jsonp: 'json_callback',
 	    url: 'http://www.giantbomb.com/api/search/?format=jsonp&resources=game&api_key=' + apikey +'&query=' + encodeURI(query),
 	    complete: function() {
-	        console.log('ajax complete');
 	    },
 	    success: function(data) {
 	        searchCallback(data.results);
-	        console.log("result: " + data.results);
 	    }
 	});
 
